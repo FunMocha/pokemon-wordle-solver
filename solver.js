@@ -1,42 +1,40 @@
+var listOf5 = []
+
+fetch("pokemon_names.json")
+    .then(response =>
+        response.json())
+    .then(json => {
+        listOf5 =
+            Object.keys(json)
+                .map(key => json[key])
+                .flat()
+                .filter(name => name.length === 5)
+    });
+
 function solve() {
-    const name = document.getElementById("name").value
-    const color = Array.from(document.getElementById("colors").value).map(value => Number(value))
 
-    const resultList = [
-        [name, color]
-        // ["クレセリア", [0, 0, 0, 1, 0]],
-        // ["ミロカロス", [0, 0, 0, 0, 0]],
-        // ["バタフリー", [0, 0, 0, 1, 2]],
-        // ["ゴーリキー", [0, 0, 1, 0, 2]],
-        // ["ダグトリオ", [0, 0, 0, 2, 0]],
-        // ["ボーマンダ", [0, 0, 0, 0, 0]],
-        // ["ポッタイシ", [0, 0, 0, 0, 0]],
-        // ["メガニウム", [0, 0, 0, 0, 0]],
-        // ["ロあロロス", [1, 0, 0, 2, 2]],
-        // ["ミロカスロ", [2, 2, 2, 1, 1]]
-        // ["グラードン", [0, 0, 1, 0, 0]],
-        // ["コイキング", [0, 0, 2, 2, 2]]
-        // ["グラードン", [0, 0, 0, 0, 0]],
-        // ["ポッタイシ", [0, 0, 0, 0, 0]],
-        // ["ヤルキモノ", [0, 0, 1, 0, 1]],
-    ]
-    fetch("pokemon_names.json")
-        .then(response =>
-            response.json())
-        .then(json => {
-            var listOf5 =
-                Object.keys(json)
-                    .map(key => json[key])
-                    .flat()
-                    .filter(name => name.length === 5)
+    var resultPairList = []
+    Array.from(document.getElementsByClassName("name-box")).map((elem, idx) => {
 
+        if (idx % 5 === 0) {
+            resultPairList.push(["", []])
+        }
 
+        const color = elem.style.backgroundColor;
+        const colorId = color === grey ? 0 : color === "rgb(181, 159, 59)" ? 1 : 2
+        resultPairList[Math.floor(idx / 5)][0] += elem.textContent
+        resultPairList[Math.floor(idx / 5)][1].push(colorId)
 
-            const regex = resultList.map(result => createRegex(result[0], result[1])).flat().join("")
-            document.getElementById("result").innerHTML = ""
-            listOf5.filter(name => name.match(regex)).forEach(pokemon =>
-                document.getElementById("result").innerHTML += `<li>${pokemon}</li>`)
-        });
+    })
+
+    tmpListOf5 = listOf5
+    const regex = "^" + resultPairList.map(result => createRegex(result[0], result[1])).flat().join("") + ".*$"
+
+    document.getElementById("result").innerHTML = ""
+    tmpListOf5 = tmpListOf5.filter(name => name.match(regex)).forEach(pokemon => {
+        document.getElementById("result").innerHTML += `<li>${pokemon}</li>`
+    })
+
 }
 
 function createRegex(inputName, resultColors) {

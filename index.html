@@ -1,0 +1,275 @@
+<!doctype html>
+<html dir="ltr" lang="ja">
+<script type="text/javascript" src="solver.js"></script>
+<script type="text/javascript">
+
+    const green = "rgb(83, 141, 78)"
+    const yellow = "rgb(181, 159, 59)"
+    const grey = "grey"
+    const red = "red"
+
+    function inputListener(obj) {
+        const activeDoc = document.activeElement
+        const activeIdx = activeDoc.id.replace("input", "")
+
+        const value = (activeDoc.value + "     ").slice(0, 5)
+
+        Array.from(value).forEach((char, charIdx) => {
+            document.getElementById(`name${activeIdx}-${charIdx + 1}`).textContent = char;
+        })
+    }
+
+    function changeColor(element) {
+
+        const currentColor = element.style.backgroundColor
+        nextColor = ""
+        switch (currentColor) {
+            case grey:
+                nextColor = yellow;
+                break
+            case yellow:
+                nextColor = green;
+                break
+            case green:
+                nextColor = grey;
+                break
+            default:
+                nextColor = red; // ここに入ることはないはず
+        }
+        event.style.backgroundColor = nextColor;
+    }
+
+    function init() {
+        Array.from(document.getElementsByClassName("input")).forEach(element => element.addEventListener("input", inputListener))
+        Array.from(document.getElementsByClassName("name-box")).forEach(element => {
+            element.style.backgroundColor = grey;
+            element.onclick = () => changeColor(element);
+        })
+
+    }
+
+    window.addEventListener('load', init);
+</script>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Pokemon Wordle Solver</title>
+    <style>
+        * {
+            margin: 0px;
+        }
+
+        body {
+            background-size: auto;
+            margin: 0;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #result-area {
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            border: 3px solid #888;
+            border-radius: 7px;
+            min-width: 150px;
+            margin: 10px;
+        }
+
+        #result-head {
+            font-size: 20px;
+            border-bottom: 2px solid #888;
+        }
+
+
+        #result {
+            font-size: 20px;
+            list-style: none;
+            text-align: center;
+            padding-left: 0;
+        }
+
+        .text-box {
+            font-size: 25px;
+            text-align: center;
+            height: 30px;
+            width: 30px;
+        }
+
+        #input-area {
+            border: 3px solid #888;
+            border-radius: 7px;
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+
+            margin-top: 10px;
+        }
+
+        #button-container {
+            text-align: center;
+            justify-content: center;
+        }
+
+        #button {
+            width: 100px;
+            font-size: 20px;
+        }
+
+        .input-row {
+            margin: 0px 0px 8px 0px;
+            background-color: #ddd;
+            border-radius: 5px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .name-box {
+            font-size: 30px;
+            height: 50px;
+            width: 50px;
+            margin-right: 10px;
+            text-align: center;
+            color: white;
+            padding: 0;
+            border-radius: 15%;
+            background-color: grey;
+
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+
+            justify-content: center;
+            margin: 5px 0;
+
+            text-align: center;
+        }
+
+        .name {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+
+            justify-content: center;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="input-area">
+            <div class="input-row">
+                <div id="name1" class="name">
+                    <div id="name1-1" class="name-box">
+                    </div>
+                    <div id="name1-2" class="name-box">
+                    </div>
+                    <div id="name1-3" class="name-box">
+                    </div>
+                    <div id="name1-4" class="name-box">
+                    </div>
+                    <div id="name1-5" class="name-box">
+                    </div>
+                </div>
+                <div class="input-box"><input id="input1" class="input" type="text" maxlength="5" /></div>
+            </div>
+            <div class="input-row">
+                <div class="name">
+                    <div id="name2-1" class="name-box">
+                    </div>
+                    <div id="name2-2" class="name-box">
+                    </div>
+                    <div id="name2-3" class="name-box">
+                    </div>
+                    <div id="name2-4" class="name-box">
+                    </div>
+                    <div id="name2-5" class="name-box">
+                    </div>
+                </div>
+                <div class="input-box"><input id="input3" class="input" type="text" maxlength="5" /></div>
+            </div>
+            <div class="input-row">
+                <div class="name">
+                    <div id="name3-1" class="name-box">
+                    </div>
+                    <div id="name3-2" class="name-box">
+                    </div>
+                    <div id="name3-3" class="name-box">
+                    </div>
+                    <div id="name3-4" class="name-box">
+                    </div>
+                    <div id="name3-5" class="name-box">
+                    </div>
+                </div>
+                <div class="input-box"><input id="input4" class="input" type="text" maxlength="5" /></div>
+            </div>
+            <div class="input-row">
+                <div class="name">
+                    <div id="name4-1" class="name-box">
+                    </div>
+                    <div id="name4-2" class="name-box">
+                    </div>
+                    <div id="name4-3" class="name-box">
+                    </div>
+                    <div id="name4-4" class="name-box">
+                    </div>
+                    <div id="name4-5" class="name-box">
+                    </div>
+                </div>
+                <div class="input-box"><input id="input6" class="input" type="text" maxlength="5" /></div>
+            </div>
+            <div class="input-row">
+                <div class="name">
+                    <div id="name5-1" class="name-box">
+                    </div>
+                    <div id="name5-2" class="name-box">
+                    </div>
+                    <div id="name5-3" class="name-box">
+                    </div>
+                    <div id="name5-4" class="name-box">
+                    </div>
+                    <div id="name5-5" class="name-box">
+                    </div>
+                </div>
+                <div class="input-box"><input id="input6" class="input" type="text" maxlength="5" /></div>
+            </div>
+            <div class="input-row">
+                <div class="name">
+                    <div id="name6-1" class="name-box">
+                    </div>
+                    <div id="name6-2" class="name-box">
+                    </div>
+                    <div id="name6-3" class="name-box">
+                    </div>
+                    <div id="name6-4" class="name-box">
+                    </div>
+                    <div id="name6-5" class="name-box">
+                    </div>
+                </div>
+                <div class="input-box"><input id="input2" class="input" type="text" maxlength="5" /></div>
+            </div>
+            <div id="button-container"><button id="button" onclick="solve()">Solve</button></div>
+
+        </div>
+
+        <div id="result-area">
+            <div id="result-head">候補</div>
+            <ul id="result">&nbsp;</ul>
+        </div>
+    </div>
+</body>
+
+</html>
